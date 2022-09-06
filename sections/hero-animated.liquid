@@ -1,0 +1,331 @@
+{{ 'hero-animated.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_text = false
+  assign link_slide = false
+  if section.settings.title != blank or section.settings.subheading != blank or section.settings.link_text != blank
+    assign hero_text = true
+  endif
+  if section.settings.link_text == blank and section.settings.link != blank
+    assign link_slide = true
+  endif
+
+  assign natural_height_ratio = '60%'
+  assign natural_height_ratio_mobile = '100%'
+-%}
+
+{%- for block in section.blocks limit: 1 -%}
+  {%- if block.settings.image != blank -%}
+    {%- capture natural_height_ratio -%}{{ 100 | divided_by: block.settings.image.aspect_ratio }}%{% endcapture %}
+    {%- assign natural_height_ratio_mobile = natural_height_ratio -%}
+    {%- if page_image == blank -%}
+      <meta property="og:image" content="http:{{ block.settings.image | img_url: '1200x630' }}">
+      <meta property="og:image:secure_url" content="https:{{ block.settings.image | img_url: '1200x630' }}">
+    {%- endif -%}
+  {%- endif -%}
+  {%- if block.settings.image_mobile != blank -%}
+    {%- capture natural_height_ratio_mobile -%}{{ 100 | divided_by: block.settings.image_mobile.aspect_ratio }}%{% endcapture %}
+  {%- endif -%}
+{% endfor %}
+
+{%- assign slide_speed = 1 -%}
+{%- if section.settings.style == 'fading' -%}
+  {%- assign slide_speed = 3 -%}
+{%- endif -%}
+
+
+<div id="animation-wrapper" class="animated-image-wrapper 
+animation-image-wrapper--{{ section.id }}
+  
+{% if section.settings.hero-height == 'small' %}
+small
+{% elsif section.settings.hero-height == 'medium' %}
+medium
+{% else %}
+large
+{% endif %}"
+
+{% if section.settings.max_width %} 
+  style="max-width:2400px;margin:0 auto;"
+{% endif %}
+
+  >
+
+	{%- for block in section.blocks -%}
+		<animation-hero class="image-inside {% if section.settings.style != blank and section.settings.style == 'gif' %}gif{% endif %}" >
+          	{%if block.settings.image != blank%}
+              <img class="animate-image hero-desktop" src="{{block.settings.image | img_url: 'master'}}"  alt="{{ block.settings.image.alt | escape }}">
+              <img class="animate-image" src="{{block.settings.mobile-image | img_url: 'master'}}"  alt="{{ block.settings.image.alt | escape }}">          
+            {%elsif block.settings.image == blank%}
+              {{ 'image' | placeholder_svg_tag }}
+          	{%endif%}
+		</animation-hero>
+	{%- endfor -%}
+  {%- if hero_text -%}
+    <div class="hero__text-wrap">
+      <div class="page-width custom-alignment">
+        <div class="hero__text-content {{ section.settings.text_align }}
+        {% if section.settings.text-position == 'top' %}
+        text-top
+        {% elsif section.settings.text-position == 'bottom' %}
+        text-bottom
+        {% elsif section.settings.text-position == 'center-left' %}
+        text-left
+        {% elsif section.settings.text-position == 'center-right' %}
+        text-right
+        {% else %}
+        text-center
+        {% endif %}
+
+        {% if section.settings.text-align == 'left' %}
+        text-align-left
+        {% elsif section.settings.text-align == 'right' %}
+        text-align-right
+        {% else %}
+        text-align-center
+        {% endif %}
+        ">
+          <div class="hero__text-shadow" data-aos>
+            {%- if section.settings.title != blank -%}
+              <div class="h1 hero__title appear-delay{% cycle '','-2','-4','-6','-8' %}"
+              {% if section.settings.title_color_1 != blank %}
+              style="color: {{section.settings.title_color_1}};"
+              {% endif %}>
+                {{ section.settings.title | newline_to_br }}
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.subheading != blank -%}
+              <div class="hero__subtitle appear-delay{% cycle '','-2','-4','-6','-8' %}"
+              {% if section.settings.sub_title_color_1 != blank %}
+              style="color: {{section.settings.sub_title_color_1}};"
+              {% endif %}>
+                {{ section.settings.subheading | escape }}
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.link_text != blank -%}
+              <div class="hero__link appear-delay{% cycle '','-2','-4','-6','-8' %}">
+                <a href="{{ section.settings.link }}" 
+                class="button{% unless accent_exists %} button--inverse{% endunless %}
+                {% if section.settings.button_bgcolor_1 != blank %}
+                no-border
+                {% endif %}"
+                {% if section.settings.button_bgcolor_1 != blank %}
+                style="background-color: {{ section.settings.button_bgcolor_1 }};color: {{section.settings.button_txtcolor_1}};"
+                {% endif %}>
+                  {{ section.settings.link_text }}
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var fadeComplete = function (e) { stage.appendChild(arr[0]); };
+		var stage = document.getElementById("animation-wrapper");
+		var arr = stage.getElementsByTagName("animation-hero");
+		console.log(arr)
+		for (var i = 0; i < arr.length; i++) {
+		arr[i].addEventListener("animationend", fadeComplete, false);
+		}
+  	}, false);
+</script>
+
+
+{% schema %}
+  {
+    "name": "Animated image hero",
+    "class": "index-section--hero",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "select",
+        "id": "hero-height",
+        "label": "Hero Height",
+        "default": "small",
+        "options": [
+          {
+            "label": "Small",
+            "value": "small"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Large",
+            "value": "large"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "max_width",
+        "label": "Give max width for larger screens",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "style",
+        "label": "Animation style",
+        "default": "fading",
+        "options": [
+          {
+            "label": "GIF",
+            "value": "gif"
+          },
+          {
+            "label": "Fading",
+            "value": "fading"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text-position",
+        "label": "Text Position",
+        "default": "center-center",
+        "options": [
+          {
+            "label": "Center",
+            "value": "center-center"
+          },
+          {
+            "label": "Center Left",
+            "value": "center-left"
+          },
+          {
+            "label": "Center Right",
+            "value": "center-right"
+          },
+          {
+            "label": "Top",
+            "value": "top"
+          },
+          {
+            "label": "Bottom",
+            "value": "bottom"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text-align",
+        "label": "Text Alignment",
+        "default": "center",
+        "options": [
+          {
+            "label": "Right",
+            "value": "right"
+          },
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Center",
+            "value": "center"
+          }
+        ]
+      },
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "Heading",
+        "default": "Make an instant impression"
+      },
+      {
+        "type": "color",
+        "id": "title_color_1",
+        "label": "Heading Text color"
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "label": "Heading text size",
+        "default": 80,
+        "min": 30,
+        "max": 100,
+        "unit": "px"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Text",
+        "default": "With fading or GIF-style animated images"
+      },
+      {
+        "type": "color",
+        "id": "sub_title_color_1",
+        "label": "Description text color"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link text",
+        "default": "Optional button"
+      },        
+      {
+        "type": "color",
+        "id": "button_bgcolor_1",
+        "label": "button background color"
+      },
+      {
+          "type": "color",
+          "id": "button_txtcolor_1",
+          "label": "button Text color"
+      },
+      {
+        "type": "range",
+        "id": "top_margin",
+        "min": 0,
+        "max": 80,
+        "step": 5,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile-image",
+            "label": "Image For Mobile"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Animated image hero",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
