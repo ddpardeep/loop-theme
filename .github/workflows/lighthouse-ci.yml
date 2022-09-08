@@ -10,8 +10,7 @@ jobs:
         uses: shopify/lighthouse-ci-action@v1
         with:
           store: gift-card-wallet.myshopify.com
-          password: ${{ secrets.SHOP_PASSWORD }}
-          access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
-          lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          password: gift
+          access_token: shpua_9c242ad5fab328d55fdd03a59d0617c7
           lhci_min_score_performance: 0.1
           lhci_min_score_accessibility: 0.1
