@@ -12,5 +12,5 @@ jobs:
           store: gift-card-wallet.myshopify.com
           password: gift
           access_token: shpua_9c242ad5fab328d55fdd03a59d0617c7
-          lhci_min_score_performance: 0.9
-          lhci_min_score_accessibility: 0.9
+          lhci_min_score_performance: 0.3
+          lhci_min_score_accessibility: 0.3
