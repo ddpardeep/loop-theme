@@ -5,11 +5,12 @@ jobs:
     name: Lighthouse
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Lighthouse
-      uses: shopify/lighthouse-ci-action@v1
-      with:
-        access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
-        store: ${{ secrets.SHOP_STORE }}
-        password: ${{ secrets.SHOP_PASSWORD }}
-        lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Lighthouse
+        uses: shopify/lighthouse-ci-action@v1
+        with:
+          store: gift-card-wallet.myshopify.com
+          password: gift
+          access_token: shpua_9c242ad5fab328d55fdd03a59d0617c7
+          lhci_min_score_performance: 0.3
+          lhci_min_score_accessibility: 0.3
