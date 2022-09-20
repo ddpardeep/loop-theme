@@ -10,18 +10,25 @@
   <link rel="alternate" hreflang="x-default" href="https://www.loopearplugs.com{% unless routes.root_url == "/" %}{{ request.path | remove: routes.root_url }}{% else %}{{ request.path }}{% endunless %}" />
   <!-- END HREFLANG -->
 <!--START     SLICK SLIDER -->
-    <link rel="stylesheet" href="{{ 'slick-theme.min.css' | asset_url }}"/>
-    <link rel="stylesheet" href="{{ 'slick.min.css' | asset_url }}" />
+    <link rel="stylesheet" href="{{ 'slick-theme.min.css' | asset_url }}"
+          integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ 'slick.min.css' | asset_url }}"
+          integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script  defer href="{{ 'jquery.min.js' | asset_url }}" />
+  <script  defer="defer" href="{{ 'jquery.min.js' | asset_url }}">
 
-    <script  defer href="{{ 'slick.min.js' | asset_url }}" />
+    <script  defer="defer" href="{{ 'slick.min.js' | asset_url }}"
+            integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     
 
 <!--     STOP SLICK SLIDER -->
 
     <!-- FigPii Tracking Code -->
-<script id="piiTester" type="text/javascript" async crossorigin="anonymous" src="//tracking-cdn.figpii.com/b5a934bc7f988289ca4f3743affd207b.js"></script>
+<script id="piiTester" type="text/javascript" async="async" crossorigin="anonymous" src="//tracking-cdn.figpii.com/b5a934bc7f988289ca4f3743affd207b.js"></script>
 <!-- End FigPii Tracking Code -->
     
   <!-- Google Tag Manager -->
@@ -93,7 +100,7 @@ setTimeout(function(){s();},to)};
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'global.js' | asset_url }}" async></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
 
     {%- liquid
@@ -337,7 +344,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
 
     {%- if settings.predictive_search_enabled -%}
-      <script defer src="{{ 'predictive-search.js' | asset_url }}"></script>
+      <script defer src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     
   <!-- Klaviyo Snippet -->
@@ -346,7 +353,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Klaviyo Back In Stock Script -->
   <script defer src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
-  <script async>
+  <script>
     var klaviyo = klaviyo || [];
     klaviyo.init({
       account: "SMzcKW",
@@ -386,7 +393,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
   <!-- Begin Klaviyo add to cart Script -->  
-    <script type="text/javascript" async>
+    <script type="text/javascript">
 var _learnq = _learnq || [];
 function addedToCart() {
   fetch(`${window.location.origin}/cart.js`)
@@ -425,15 +432,15 @@ $(document).ajaxComplete(function(event, request, settings){
   <!-- End Klaviyo add to cart Script -->  
   
 <!-- Gorgias Chat Widget -->
-<script async id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=9485"></script>
-<script async>
+<script id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=9485"></script>
+<script>
 gorgiasChat.init().then(async (chat) => {
 chat.hidePoweredBy(true)
 })
 </script>
 <!-- END Gorgias Chat Widget -->
 
-    <script async>
+    <script>
       $(document).ready(function () {
         $("#Details-menu-drawer-container").click(function () {
 
@@ -447,7 +454,7 @@ chat.hidePoweredBy(true)
     
   {% if customer %} <div id="shopmsg-customer-helper" data-id="{{ customer.id }}" style="display:none;"></div>{% endif %}
   
-  <script async>
+  <script>
 window.rumv = window.rumv || { url: location.pathname };
 window.rumv.storage = JSON.parse( sessionStorage.getItem('rumv') || '{"pageviews":0}' );
 
