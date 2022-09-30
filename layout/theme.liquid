@@ -10,19 +10,19 @@
   <link rel="alternate" hreflang="x-default" href="https://www.loopearplugs.com{% unless routes.root_url == "/" %}{{ request.path | remove: routes.root_url }}{% else %}{{ request.path }}{% endunless %}" />
   <!-- END HREFLANG -->
 <!--START     SLICK SLIDER -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+    <link rel="stylesheet" href="{{ 'slick-theme.min.css' | asset_url }}"
           integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+    <link rel="stylesheet" href="{{ 'slick.min.css' | asset_url }}"
           integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <link rel="preload" as="script" href="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+  <script  defer="defer" href="{{ 'jquery.min.js' | asset_url }}">
 
-    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
+    <script  defer="defer" href="{{ 'slick.min.js' | asset_url }}"
             integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
             crossorigin="anonymous" referrerpolicy="no-referrer">
-    </link>
+    </script>
     
 
 <!--     STOP SLICK SLIDER -->
@@ -344,15 +344,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
 
     {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+      <script defer src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     
   <!-- Klaviyo Snippet -->
-  <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=SMzcKW"></script>
+  <script defer type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=SMzcKW"></script>
   <!-- End Klaviyo Snippet -->
 
   <!-- Klaviyo Back In Stock Script -->
-  <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+  <script defer src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
   <script>
     var klaviyo = klaviyo || [];
     klaviyo.init({
@@ -431,16 +431,6 @@ $(document).ajaxComplete(function(event, request, settings){
 
   <!-- End Klaviyo add to cart Script -->  
   
-    <!--     START SLICK SLIDER -->
-<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
-            integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
-            crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
-
-
-    <!-- END SLICK SLIDER -->
-
 <!-- Gorgias Chat Widget -->
 <script id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=9485"></script>
 <script>

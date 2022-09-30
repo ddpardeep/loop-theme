@@ -1408,7 +1408,7 @@
 
       if(settings.theme && ((settings.theme.loadJquery && settings.theme.loadJquery === true) || typeof settings.theme.loadJquery === 'undefined')) {
         if(typeof jQuery === 'undefined') {
-          LyHelper.loadScript('//cdn.jsdelivr.net/jquery/1.9.1/jquery.min.js', function() {});
+          LyHelper.loadScript('{{ 'jquery.min.js' | asset_url }}', function() {});
         } 
       }
 
